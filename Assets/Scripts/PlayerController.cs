@@ -27,6 +27,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float wallCheckDistance;
     [SerializeField] private Transform wallCheck;
 
+    [Space]
+    [SerializeField] private float ledgeClimbXOffset1 = 0;
+    [SerializeField] private float ledgeClimbXOffset2 = 0;
+    [SerializeField] private float ledgeClimbYOffset1 = 0;
+    [SerializeField] private float ledgeClimbYOffset2 = 0;
+    [SerializeField] private Transform ledgeCheck;
+
     private int _jumpsAmountLeft;
     private int _lastWallJumpDirection;
     private int _facingDirection = 1;
@@ -48,6 +55,13 @@ public class PlayerController : MonoBehaviour
     private bool _canMove;
     private bool _canFlip;
     private bool _hasWallJumped;
+    private bool _isTouchingLedge;
+    private bool _canClimbLedge = false;
+    private bool _ledgeDetected;
+
+    private Vector2 _ledgePosBot;
+    private Vector2 _ledgePos1;
+    private Vector2 _ledgePos2;
 
     private Rigidbody2D _rb;
     private Animator _animator;
@@ -72,12 +86,23 @@ public class PlayerController : MonoBehaviour
         CheckIfWallSliding();
         UpdateAnimations();
         CheckJump();
+        CheckLedgeClimb();
     }
 
     private void FixedUpdate()
     {
         ApplyMovement();
         CheckSurroundings();
+    }
+
+    public void FinishLedgeClimb()
+    {
+        _canClimbLedge = false;
+        transform.position = _ledgePos2;
+        _canMove = true;
+        _canFlip = true;
+        _ledgeDetected = false;
+        _animator.SetBool("canClimbLedge", _canClimbLedge);
     }
 
     private void CheckInput()
@@ -106,7 +131,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (!_canMove)
+        if (_turnTimer >= 0)
         {
             _turnTimer -= Time.deltaTime;
             if(_turnTimer <= 0)
@@ -135,7 +160,7 @@ public class PlayerController : MonoBehaviour
 
     private void CheckIfWallSliding()
     {
-        _isWallSliding = (_isTouchingWall && _movementInputDirection == _facingDirection && _rb.velocity.y < 0);
+        _isWallSliding = (_isTouchingWall && _movementInputDirection == _facingDirection && _rb.velocity.y < 0 && !_canClimbLedge);
     }
 
     private void CheckIfCanJump()
@@ -149,10 +174,44 @@ public class PlayerController : MonoBehaviour
         _canNormalJump = _jumpsAmountLeft > 0;
     }
 
+    private void CheckLedgeClimb()
+    {
+        if(_ledgeDetected && !_canClimbLedge)
+        {
+            _canClimbLedge = true;
+
+            if (_isFacingRight)
+            {
+                _ledgePos1 = new Vector2(Mathf.Floor(_ledgePosBot.x + wallCheckDistance) - ledgeClimbXOffset1, Mathf.Floor(_ledgePosBot.y) + ledgeClimbYOffset1);
+                _ledgePos2 = new Vector2(Mathf.Floor(_ledgePosBot.x + wallCheckDistance) + ledgeClimbXOffset2, Mathf.Floor(_ledgePosBot.y) + ledgeClimbYOffset2);
+            }
+            else
+            {
+                _ledgePos1 = new Vector2(Mathf.Ceil(_ledgePosBot.x - wallCheckDistance) + ledgeClimbXOffset1, Mathf.Floor(_ledgePosBot.y) + ledgeClimbYOffset1);
+                _ledgePos2 = new Vector2(Mathf.Ceil(_ledgePosBot.x - wallCheckDistance) - ledgeClimbXOffset2, Mathf.Floor(_ledgePosBot.y) + ledgeClimbYOffset2);
+            }
+
+            _canMove = false;
+            _canFlip = false;
+
+            _animator.SetBool("canClimbLedge", _canClimbLedge);
+        }
+
+        if (_canClimbLedge)
+            transform.position = _ledgePos1;
+    }
+
     private void CheckSurroundings()
     {
         _isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
         _isTouchingWall = Physics2D.Raycast(wallCheck.position, transform.right, wallCheckDistance, whatIsGround);
+        _isTouchingLedge = Physics2D.Raycast(ledgeCheck.position, transform.right, wallCheckDistance, whatIsGround);
+
+        if(_isTouchingWall && !_isTouchingLedge && !_ledgeDetected)
+        {
+            _ledgeDetected = true;
+            _ledgePosBot = wallCheck.position;
+        }
     }
 
     private void UpdateAnimations()
