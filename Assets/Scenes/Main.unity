@@ -75951,6 +75951,10 @@ MonoBehaviour:
   jumpsAmount: 2
   jumpForce: 16
   variableJumpHeightMultiplier: 0.5
+  wallHopForce: 10
+  wallJumpForce: 20
+  wallHopDirection: {x: 1, y: 0.5}
+  wallJumpDirection: {x: 1, y: 2}
   groundCheckRadius: 0.2
   whatIsGround:
     serializedVersion: 2
