@@ -66481,6 +66481,51 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &950894105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 950894106}
+  - component: {fileID: 950894107}
+  m_Layer: 0
+  m_Name: PlayerAfterImagePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &950894106
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950894105}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &950894107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950894105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa4af68e708cfe4a9cda1d77f8fc78b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _afterImagePrefab: {fileID: 8105282718366923954, guid: 11a978c8dafe2f6449e5dc59de0cbf28, type: 3}
 --- !u!1 &1255793544
 GameObject:
   m_ObjectHideFlags: 0
@@ -75358,7 +75403,7 @@ GameObject:
   - component: {fileID: 1525710962}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75431,7 +75476,7 @@ Transform:
   - {fileID: 510324951}
   - {fileID: 1255793545}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1525710960
 BoxCollider2D:
@@ -75515,6 +75560,10 @@ MonoBehaviour:
   ledgeClimbYOffset1: 0
   ledgeClimbYOffset2: 2
   ledgeCheck: {fileID: 1255793545}
+  dashTime: 0.2
+  dashSpeed: 50
+  distanceBetweenImages: 0.1
+  dashCoolDown: 2.5
 --- !u!95 &1525710963
 Animator:
   serializedVersion: 4
@@ -75566,7 +75615,7 @@ Transform:
   - {fileID: 519420032}
   - {fileID: 491000239}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1883887626
 GameObject:
@@ -75614,7 +75663,7 @@ Transform:
   - {fileID: 785427632}
   - {fileID: 197378766}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1903232415
 GameObject:

@@ -34,6 +34,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float ledgeClimbYOffset2 = 0;
     [SerializeField] private Transform ledgeCheck;
 
+    [Space]
+    [SerializeField] private float dashTime;
+    [SerializeField] private float dashSpeed;
+    [SerializeField] private float distanceBetweenImages;
+    [SerializeField] private float dashCoolDown;
+
     private int _jumpsAmountLeft;
     private int _lastWallJumpDirection;
     private int _facingDirection = 1;
@@ -42,6 +48,9 @@ public class PlayerController : MonoBehaviour
     private float _jumpTimer;
     private float _turnTimer;
     private float _wallJumpTimer;
+    private float _dashTimeLeft;
+    private float _lastImagePositionX;
+    private float _lastDash = -100;
 
     private bool _isFacingRight = true;
     private bool _isWalking;
@@ -58,6 +67,7 @@ public class PlayerController : MonoBehaviour
     private bool _isTouchingLedge;
     private bool _canClimbLedge = false;
     private bool _ledgeDetected;
+    private bool _isDashing;
 
     private Vector2 _ledgePosBot;
     private Vector2 _ledgePos1;
@@ -87,6 +97,7 @@ public class PlayerController : MonoBehaviour
         UpdateAnimations();
         CheckJump();
         CheckLedgeClimb();
+        CheckDash();
     }
 
     private void FixedUpdate()
@@ -111,7 +122,7 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
-            if(_isGrounded || (_jumpsAmountLeft > 0 && _isTouchingWall))
+            if (_isGrounded || (_jumpsAmountLeft > 0 && _isTouchingWall))
                 NormalJump();
             else
             {
@@ -120,9 +131,9 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(Input.GetButtonDown("Horizontal") && _isTouchingWall)
+        if (Input.GetButtonDown("Horizontal") && _isTouchingWall)
         {
-            if(!_isGrounded && _movementInputDirection != _facingDirection)
+            if (!_isGrounded && _movementInputDirection != _facingDirection)
             {
                 _canMove = false;
                 _canFlip = false;
@@ -134,7 +145,7 @@ public class PlayerController : MonoBehaviour
         if (_turnTimer >= 0)
         {
             _turnTimer -= Time.deltaTime;
-            if(_turnTimer <= 0)
+            if (_turnTimer <= 0)
             {
                 _canMove = true;
                 _canFlip = true;
@@ -146,6 +157,19 @@ public class PlayerController : MonoBehaviour
             _checkJumpMultiplier = false;
             _rb.velocity = new Vector2(_rb.velocity.x, _rb.velocity.y * variableJumpHeightMultiplier);
         }
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+            AttemptToDash();
+    }
+    
+    private void AttemptToDash()
+    {
+        _isDashing = true;
+        _dashTimeLeft = dashTime;
+        _lastDash = Time.time;
+
+        PlayerAfterImagePool.Instance.GetFromPool();
+        _lastImagePositionX = transform.position.x;
     }
 
     private void CheckMovementDirection()
@@ -229,6 +253,33 @@ public class PlayerController : MonoBehaviour
             _facingDirection *= -1;
             _isFacingRight = !_isFacingRight;
             transform.Rotate(0, 180, 0);
+        }
+    }
+
+    private void CheckDash()
+    {
+        if (_isDashing)
+        {
+            if(_dashTimeLeft > 0)
+            {
+                _canMove = false;
+                _canFlip = false;
+                _rb.velocity = new Vector2(dashSpeed * _facingDirection, _rb.velocity.y);
+                _dashTimeLeft -= Time.deltaTime;
+
+                if(Mathf.Abs(transform.position.x - _lastImagePositionX) > distanceBetweenImages)
+                {
+                    PlayerAfterImagePool.Instance.GetFromPool();
+                    _lastImagePositionX = transform.position.x;
+                }
+            }
+
+            if(_dashTimeLeft <= 0 || _isTouchingWall)
+            {
+                _isDashing = false;
+                _canMove = true;
+                _canFlip = true;
+            }
         }
     }
 
