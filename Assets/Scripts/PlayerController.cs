@@ -179,7 +179,7 @@ public class PlayerController : MonoBehaviour
         else if (!_isFacingRight && _movementInputDirection > 0)
             Flip();
 
-        _isWalking = _rb.velocity.x != 0;
+        _isWalking = Mathf.Abs(_rb.velocity.x) >= 0.01f;
     }
 
     private void CheckIfWallSliding()
@@ -246,6 +246,16 @@ public class PlayerController : MonoBehaviour
         _animator.SetBool("isWallSliding", _isWallSliding);
     }
 
+    public void DisableFlip()
+    {
+        _canFlip = false;
+    }
+
+    public void EnableFlipp()
+    {
+        _canFlip = true;
+    }
+
     private void Flip()
     {
         if (!_isWallSliding && _canFlip)
@@ -264,7 +274,7 @@ public class PlayerController : MonoBehaviour
             {
                 _canMove = false;
                 _canFlip = false;
-                _rb.velocity = new Vector2(dashSpeed * _facingDirection, _rb.velocity.y);
+                _rb.velocity = new Vector2(dashSpeed * _facingDirection, 0);
                 _dashTimeLeft -= Time.deltaTime;
 
                 if(Mathf.Abs(transform.position.x - _lastImagePositionX) > distanceBetweenImages)
