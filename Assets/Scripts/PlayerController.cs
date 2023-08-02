@@ -106,6 +106,11 @@ public class PlayerController : MonoBehaviour
         CheckSurroundings();
     }
 
+    public int GetFacingDirection()
+    {
+        return _facingDirection;
+    }
+
     public void FinishLedgeClimb()
     {
         _canClimbLedge = false;
