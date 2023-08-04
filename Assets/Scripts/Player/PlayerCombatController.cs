@@ -12,6 +12,7 @@ public class PlayerCombatController : MonoBehaviour
     [SerializeField] private bool combatEnabled;
 
     private float _lastInputTime = Mathf.Infinity;
+    private float[] _attackDetails = new float[2];
 
     private bool _gotInput;
     private bool _isAttacking;
@@ -67,9 +68,12 @@ public class PlayerCombatController : MonoBehaviour
     {
         var detectedObjects = Physics2D.OverlapCircleAll(attack1HitBoxPosition.position, attack1Radius, whatIsDamageable);
 
+        _attackDetails[0] = attack1Damage;
+        _attackDetails[1] = transform.position.x;
+
         foreach (var detectedObject in detectedObjects)
         {
-            detectedObject.transform.parent.SendMessage("Damage", attack1Damage);
+            detectedObject.transform.parent.SendMessage("Damage", _attackDetails);
 
         }
     }
