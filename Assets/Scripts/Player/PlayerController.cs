@@ -40,6 +40,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float distanceBetweenImages;
     [SerializeField] private float dashCoolDown;
 
+    [Space]
+    [SerializeField] private float knockbackDuration;
+    [SerializeField] private Vector2 knockbackSpeed;
+
     private int _jumpsAmountLeft;
     private int _lastWallJumpDirection;
     private int _facingDirection = 1;
@@ -51,6 +55,7 @@ public class PlayerController : MonoBehaviour
     private float _dashTimeLeft;
     private float _lastImagePositionX;
     private float _lastDash = -100;
+    private float _knockbackStartTime;
 
     private bool _isFacingRight = true;
     private bool _isWalking;
@@ -68,6 +73,7 @@ public class PlayerController : MonoBehaviour
     private bool _canClimbLedge = false;
     private bool _ledgeDetected;
     private bool _isDashing;
+    private bool _knockback;
 
     private Vector2 _ledgePosBot;
     private Vector2 _ledgePos1;
@@ -98,6 +104,7 @@ public class PlayerController : MonoBehaviour
         CheckJump();
         CheckLedgeClimb();
         CheckDash();
+        CheckKnockback();
     }
 
     private void FixedUpdate()
@@ -119,6 +126,28 @@ public class PlayerController : MonoBehaviour
         _canFlip = true;
         _ledgeDetected = false;
         _animator.SetBool("canClimbLedge", _canClimbLedge);
+    }
+
+    public bool GetDashStatus()
+    {
+        return _isDashing;
+    }
+
+    public void Knockback(int direction)
+    {
+        _knockback = true;
+        _knockbackStartTime = Time.time;
+
+        _rb.velocity = new Vector2(knockbackSpeed.x * direction, knockbackSpeed.y);
+    }
+
+    private void CheckKnockback()
+    {
+        if(Time.time >= _knockbackStartTime + knockbackDuration && _knockback)
+        {
+            _knockback = false;
+            _rb.velocity = new Vector2(0, _rb.velocity.y);
+        }
     }
 
     private void CheckInput()
@@ -263,7 +292,7 @@ public class PlayerController : MonoBehaviour
 
     private void Flip()
     {
-        if (!_isWallSliding && _canFlip)
+        if (!_isWallSliding && _canFlip && !_knockback)
         {
             _facingDirection *= -1;
             _isFacingRight = !_isFacingRight;
@@ -364,9 +393,9 @@ public class PlayerController : MonoBehaviour
     private void ApplyMovement()
     {
         
-        if (!_isGrounded && !_isWallSliding && _movementInputDirection == 0)
+        if (!_isGrounded && !_isWallSliding && _movementInputDirection == 0 && !_knockback)
             _rb.velocity = new Vector2(_rb.velocity.x * airDragMultiplier, _rb.velocity.y);
-        else if(_canMove)
+        else if(_canMove && !_knockback)
             _rb.velocity = new Vector2(movementSpeed * _movementInputDirection, _rb.velocity.y);
 
         if (_isWallSliding)
