@@ -4,6 +4,7 @@ public class MoveState : State
 {
     protected bool isDetectedWall;
     protected bool isDetectedLedge;
+    protected bool isPlayerInMinAngroRange;
 
     protected D_MoveState stateData;
 
@@ -21,6 +22,7 @@ public class MoveState : State
 
         isDetectedWall = entity.CheckWall();
         isDetectedLedge = entity.CheckLedge();
+        isPlayerInMinAngroRange = entity.CheckPlayerInMaxAgroRange();
     }
 
     public override void Exit()
@@ -39,5 +41,6 @@ public class MoveState : State
 
         isDetectedWall = entity.CheckWall();
         isDetectedLedge = entity.CheckLedge();
+        isPlayerInMinAngroRange = entity.CheckPlayerInMaxAgroRange();
     }
 }
