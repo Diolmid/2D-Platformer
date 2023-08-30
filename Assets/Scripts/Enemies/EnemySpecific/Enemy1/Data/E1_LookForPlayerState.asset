@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdf11814c5074a749997e114b99d4960, type: 3}
-  m_Name: E1_MoveState
+  m_Script: {fileID: 11500000, guid: 3e6981a1f8c3ca642be6d84db2f8ce54, type: 3}
+  m_Name: E1_LookForPlayerState
   m_EditorClassIdentifier: 
-  movementSpeed: 3
+  amountOfTurns: 2
+  timeBetweenTurns: 0.75

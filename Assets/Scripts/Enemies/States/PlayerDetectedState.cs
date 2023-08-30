@@ -4,6 +4,7 @@ public class PlayerDetectedState : State
 {
     protected bool isPlayerInMinAgroRange;
     protected bool isPlayerInMaxAgroRange;
+    protected bool performLongRangeAction;
 
     protected D_PlayerDetected stateData;
 
@@ -13,13 +14,19 @@ public class PlayerDetectedState : State
         this.stateData = stateData;
     }
 
+    public override void DoChecks()
+    {
+        base.DoChecks();
+
+        isPlayerInMaxAgroRange = entity.CheckPlayerInMinAgroRange();
+        isPlayerInMaxAgroRange = entity.CheckPlayerInMaxAgroRange();
+    }
+
     public override void Enter()
     {
         base.Enter();
 
-        isPlayerInMaxAgroRange = entity.CheckPlayerInMinAgroRange();
-        isPlayerInMaxAgroRange = entity.CheckPlayerInMaxAgroRange();
-
+        performLongRangeAction = false;
         entity.SetVelocity(0);
     }
 
@@ -31,13 +38,12 @@ public class PlayerDetectedState : State
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+
+        performLongRangeAction = Time.time >= startTime + stateData.longRangeActionTime;
     }
 
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
-
-        isPlayerInMaxAgroRange = entity.CheckPlayerInMinAgroRange();
-        isPlayerInMaxAgroRange = entity.CheckPlayerInMaxAgroRange();
     }
 }

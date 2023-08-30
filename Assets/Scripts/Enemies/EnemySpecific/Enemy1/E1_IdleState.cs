@@ -4,7 +4,7 @@ public class E1_IdleState : IdleState
 {
     private Enemy1 _enemy;
 
-    public E1_IdleState(Entity entity, FiniteStateMachine stateMachine, string animationBoolName, D_IdleState stateData, Enemy1 enemy)
+    public E1_IdleState(Entity entity, FiniteStateMachine stateMachine, string animationBoolName, D_Idle stateData, Enemy1 enemy)
         : base(entity, stateMachine, animationBoolName, stateData)
     {
         _enemy = enemy;

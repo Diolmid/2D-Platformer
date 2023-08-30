@@ -79,7 +79,6 @@ public class PlayerCombatController : MonoBehaviour
         foreach (var detectedObject in detectedObjects)
         {
             detectedObject.transform.parent.SendMessage("Damage", _attackDetails);
-
         }
     }
 

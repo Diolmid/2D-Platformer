@@ -1,13 +1,18 @@
 using UnityEngine;
 
-public class E1_MoveState : MoveState
+public class E1_LookForPlayerState : LookForPlayerState
 {
     private Enemy1 _enemy;
 
-    public E1_MoveState(Entity entity, FiniteStateMachine stateMachine, string animationBoolName, D_Move stateData, Enemy1 enemy) 
+    public E1_LookForPlayerState(Entity entity, FiniteStateMachine stateMachine, string animationBoolName, D_LookForPlayer stateData, Enemy1 enemy) 
         : base(entity, stateMachine, animationBoolName, stateData)
     {
         _enemy = enemy;
+    }
+
+    public override void DoChecks()
+    {
+        base.DoChecks();
     }
 
     public override void Enter()
@@ -24,14 +29,13 @@ public class E1_MoveState : MoveState
     {
         base.LogicUpdate();
 
-        if (isPlayerInMinAngroRange)
+        if (isPlayerInMinAgroRange)
         {
             stateMachine.ChangeState(_enemy.PlayerDetectedState);
         }
-        else if (isDetectedWall || !isDetectedLedge)
+        else if (isAllTurnsTimeDone)
         {
-            _enemy.IdleState.SetFlipAfterIdle(true);
-            stateMachine.ChangeState(_enemy.IdleState);
+            stateMachine.ChangeState(_enemy.MoveState);
         }
     }
 
