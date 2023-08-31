@@ -7,6 +7,7 @@ public class Entity : MonoBehaviour
     public D_Entity entityData;
 
     public FiniteStateMachine StateMachine { get; private set; }
+    public AnimationToStateMachine AnimationToStateMachine { get; private set; }
 
     public Rigidbody2D Rb { get; private set; }
     public Animator Animator { get; private set; }
@@ -23,6 +24,7 @@ public class Entity : MonoBehaviour
         AliveGO = transform.Find("Alive").gameObject;
         Rb = AliveGO.GetComponent<Rigidbody2D>();
         Animator = AliveGO.GetComponent<Animator>();
+        AnimationToStateMachine = AliveGO.GetComponent<AnimationToStateMachine>();
     }
 
     public virtual void Start()
@@ -52,6 +54,11 @@ public class Entity : MonoBehaviour
     {
         _velocityWorkspace.Set(FacingDirection * velocity, Rb.velocity.y);
         Rb.velocity = _velocityWorkspace;
+    }
+
+    public virtual bool CheckPlayerInCloseRangeAction()
+    {
+        return Physics2D.Raycast(playerCheck.position, AliveGO.transform.right, entityData.closeRangeActionDistance, entityData.whatIsPlayer);
     }
 
     public virtual bool CheckPlayerInMaxAgroRange()

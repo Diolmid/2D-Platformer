@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class E1_ChargeState : ChargeState
+public class E1_MeleeAttackState : MeleeAttackState
 {
     private Enemy1 _enemy;
 
-    public E1_ChargeState(Entity entity, FiniteStateMachine stateMachine, string animationBoolName, D_Charge stateData, Enemy1 enemy) 
-        : base(entity, stateMachine, animationBoolName, stateData)
+    public E1_MeleeAttackState(Entity entity, FiniteStateMachine stateMachine, string animationBoolName, Transform attackPosition, D_MeleeAttack stateData, Enemy1 enemy) 
+        : base(entity, stateMachine, animationBoolName, attackPosition, stateData)
     {
         _enemy = enemy;
     }
@@ -25,15 +25,16 @@ public class E1_ChargeState : ChargeState
         base.Exit();
     }
 
+    public override void FinishAttack()
+    {
+        base.FinishAttack();
+    }
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();
 
-        if (performCloseRangeAction)
-            stateMachine.ChangeState(_enemy.MeleeAttackState);
-        else if (!isDetectedLedge || isDetectedWall)
-            stateMachine.ChangeState(_enemy.LookForPlayerState);
-        else if (isChargeTimeOver)
+        if (isAnimationFinished)
         {
             if (isPlayerInMinAgroRange)
                 stateMachine.ChangeState(_enemy.PlayerDetectedState);
@@ -45,5 +46,10 @@ public class E1_ChargeState : ChargeState
     public override void PhysicsUpdate()
     {
         base.PhysicsUpdate();
+    }
+
+    public override void TriggerAttack()
+    {
+        base.TriggerAttack();
     }
 }
