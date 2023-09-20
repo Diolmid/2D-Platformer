@@ -5,6 +5,7 @@ public class PlayerCombatController : MonoBehaviour
     [SerializeField] private float inputTimer;
     [SerializeField] private float attack1Radius;
     [SerializeField] private float attack1Damage;
+    [SerializeField] private float stunDamageAmount = 1;
 
     [SerializeField] private Transform attack1HitBoxPosition;
     [SerializeField] private LayerMask whatIsDamageable;
@@ -75,6 +76,7 @@ public class PlayerCombatController : MonoBehaviour
 
         _attackDetails.damage = attack1Damage;
         _attackDetails.position = transform.position;
+        _attackDetails.stunDamageAmount = stunDamageAmount;
 
         foreach (var detectedObject in detectedObjects)
         {

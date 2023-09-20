@@ -30,6 +30,11 @@ public class E1_PlayerDetectedState : PlayerDetectedState
             stateMachine.ChangeState(_enemy.MeleeAttackState);
         else if (!isPlayerInMaxAgroRange)
             stateMachine.ChangeState(_enemy.LookForPlayerState);
+        else if (!isDetectingLedge)
+        {
+            entity.Flip();
+            stateMachine.ChangeState(_enemy.MoveState);
+        }
     }
 
     public override void PhysicsUpdate()

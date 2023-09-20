@@ -3,6 +3,7 @@ using UnityEngine;
 public class Entity : MonoBehaviour
 {
     public int FacingDirection { get; private set; }
+    public int LastDamageDirection { get; private set; }
 
     public D_Entity entityData;
 
@@ -16,6 +17,14 @@ public class Entity : MonoBehaviour
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform ledgeCheck;
     [SerializeField] private Transform playerCheck;
+    [SerializeField] private Transform groundCheck;
+
+    protected bool isStunned;
+    protected bool isDead;
+
+    private float _currentHealth;
+    private float _currentStunResistance;
+    private float _lastDamageTime;
 
     private Vector2 _velocityWorkspace;
 
@@ -30,6 +39,8 @@ public class Entity : MonoBehaviour
     public virtual void Start()
     {
         FacingDirection = 1;
+        _currentHealth = entityData.maxHealth;
+        _currentStunResistance = entityData.stunResistance;
 
         StateMachine = new FiniteStateMachine();
     }
@@ -37,11 +48,43 @@ public class Entity : MonoBehaviour
     public virtual void Update()
     {
         StateMachine.CurrentState.LogicUpdate();
+
+        if(Time.time >= LastDamageDirection + entityData.stunRecoveryTime)
+            ResetStunResistance();
     }
 
     public virtual void FixedUpdate()
     {
         StateMachine.CurrentState.PhysicsUpdate();
+    }
+
+    public virtual void ResetStunResistance()
+    {
+        isStunned = false;
+        _currentStunResistance = entityData.stunResistance;
+    }
+    
+    public virtual void Damage(AttackDetails attackDetails)
+    {
+        _lastDamageTime = Time.time;
+
+        _currentHealth -= attackDetails.damage;
+        _currentStunResistance -= attackDetails.stunDamageAmount;
+
+        DamageHop(entityData.damageHopSpeed);
+
+        Instantiate(entityData.hitParticle, AliveGO.transform.position, Quaternion.Euler(0, 0, Random.Range(0f, 360f)));
+
+        LastDamageDirection = attackDetails.position.x > AliveGO.transform.position.x ? -1 : 1;
+
+        isStunned = _currentStunResistance <= 0;
+        isDead = _currentHealth <= 0;
+    }
+
+    public virtual void DamageHop(float velocity)
+    {
+        _velocityWorkspace.Set(Rb.velocity.x, velocity);
+        Rb.velocity = _velocityWorkspace;
     }
 
     public virtual void Flip()
@@ -50,10 +93,22 @@ public class Entity : MonoBehaviour
         AliveGO.transform.Rotate(0, 180, 0);
     }
 
+    public virtual void SetVelocity(float velocity, Vector2 angle, int direction)
+    {
+        angle.Normalize();
+        _velocityWorkspace.Set(angle.x * velocity * direction, angle.y * velocity);
+        Rb.velocity = _velocityWorkspace;
+    }
+
     public virtual void SetVelocity(float velocity)
     {
         _velocityWorkspace.Set(FacingDirection * velocity, Rb.velocity.y);
         Rb.velocity = _velocityWorkspace;
+    }
+
+    public virtual bool CheckGround()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, entityData.groundCheckRadius, entityData.whatIsGround);
     }
 
     public virtual bool CheckPlayerInCloseRangeAction()
