@@ -14,6 +14,7 @@ public class Entity : MonoBehaviour
     public Animator Animator { get; private set; }
     public GameObject AliveGO { get; private set; }
 
+    [Space]
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform ledgeCheck;
     [SerializeField] private Transform playerCheck;
