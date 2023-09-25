@@ -894,6 +894,8 @@ MonoBehaviour:
   playerCheck: {fileID: 667763313}
   groundCheck: {fileID: 1945653036}
   meleeAttackPosition: {fileID: 637728933}
+  rangeAttackPosition: {fileID: 1659155895}
+  dodgeStateData: {fileID: 11400000, guid: d2aa982a8c4fc054db67ae6f031f0e87, type: 2}
   moveStateData: {fileID: 11400000, guid: 2ac9d919b7c135b4d9c945d31fec2567, type: 2}
   idleStateData: {fileID: 11400000, guid: ef5ecddc01d2ccc478ef9fdb77071511, type: 2}
   playerDetectedStateData: {fileID: 11400000, guid: 77298393ce902f147abee18f3b65d10f, type: 2}
@@ -901,6 +903,7 @@ MonoBehaviour:
   lookForPlayerStateData: {fileID: 11400000, guid: 115543175cfc54944a532ec5331bf51f, type: 2}
   stunStateData: {fileID: 11400000, guid: 2a996ec1412d8ce42b7ddd36934168f9, type: 2}
   deadStateData: {fileID: 11400000, guid: 9904b8c2183e503468c2f809562b0256, type: 2}
+  rangeAttackStateData: {fileID: 11400000, guid: 0e09e63f3bdd3d241bd7dd07a19af575, type: 2}
 --- !u!1 &237025800
 GameObject:
   m_ObjectHideFlags: 0
@@ -75980,6 +75983,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1659155894
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1659155895}
+  m_Layer: 7
+  m_Name: RangeAttackPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1659155895
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1659155894}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1836456399}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1688024595
 GameObject:
   m_ObjectHideFlags: 0
@@ -76049,6 +76083,7 @@ Transform:
   - {fileID: 667763313}
   - {fileID: 1945653036}
   - {fileID: 637728933}
+  - {fileID: 1659155895}
   m_Father: {fileID: 229350950}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

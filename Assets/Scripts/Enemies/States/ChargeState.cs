@@ -43,7 +43,7 @@ public class ChargeState : State
     {
         base.LogicUpdate();
 
-        isChargeTimeOver = Time.time >= startTime + stateData.chargeTime;
+        isChargeTimeOver = Time.time >= StartTime + stateData.chargeTime;
     }
 
     public override void PhysicsUpdate()

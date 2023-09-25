@@ -47,7 +47,7 @@ public class AttackState : State
 
     public virtual void TriggerAttack()
     {
-
+        
     }
 
     public virtual void FinishAttack()

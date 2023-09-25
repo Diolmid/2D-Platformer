@@ -43,7 +43,7 @@ public class PlayerDetectedState : State
     {
         base.LogicUpdate();
 
-        performLongRangeAction = Time.time >= startTime + stateData.longRangeActionTime;
+        performLongRangeAction = Time.time >= StartTime + stateData.longRangeActionTime;
     }
 
     public override void PhysicsUpdate()

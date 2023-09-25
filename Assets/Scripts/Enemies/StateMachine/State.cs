@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class State
 {
-    protected float startTime;
+    public float StartTime {get; protected set;}
 
     protected string animationBoolName;
 
@@ -18,7 +18,7 @@ public class State
 
     public virtual void Enter()
     {
-        startTime = Time.time;
+        StartTime = Time.time;
         entity.Animator.SetBool(animationBoolName, true);
         DoChecks();
     }
