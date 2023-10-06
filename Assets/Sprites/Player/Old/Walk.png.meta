@@ -1,9 +1,9 @@
 fileFormatVersion: 2
-guid: 31666bace9236cf41a8fdf001de9d536
+guid: 0ad91f69975cb0c4ba9bf086593cc959
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -20,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 0
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -63,6 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -74,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -86,6 +90,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -98,6 +103,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -110,13 +116,27 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Jump_0
+      name: Walk_0
       rect:
         serializedVersion: 2
         x: 0
@@ -130,14 +150,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b22ca946edd4d5e4b9397ec0e43cc295
-      internalID: -2055137504
+      spriteID: 6aff9f1c2d52a0f4ca836abcdbf7712b
+      internalID: 151565853
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_1
+      name: Walk_1
       rect:
         serializedVersion: 2
         x: 32
@@ -151,14 +171,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 40819366d54c02946802ea7176a7650e
-      internalID: 1388977872
+      spriteID: e0ea822f26abb7640850f24b3ceb7e81
+      internalID: -1237485641
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_2
+      name: Walk_2
       rect:
         serializedVersion: 2
         x: 64
@@ -172,14 +192,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a84182a93aa5da34db5a0f2627e5a404
-      internalID: -1125115230
+      spriteID: a33a3f94065e4904bae402a5ed131ebc
+      internalID: -728644205
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_3
+      name: Walk_3
       rect:
         serializedVersion: 2
         x: 96
@@ -193,14 +213,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13f1a0d16b3994a4997a7765e14920ed
-      internalID: -1861981760
+      spriteID: 633410263182ed5419c3d718f0906c91
+      internalID: -373384713
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_4
+      name: Walk_4
       rect:
         serializedVersion: 2
         x: 128
@@ -214,14 +234,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5db4137e4ee06864289510d2c7a658aa
-      internalID: 815516523
+      spriteID: 2551a63a9ca84394fa3473f7dcd6832d
+      internalID: 1022635077
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump_5
+      name: Walk_5
       rect:
         serializedVersion: 2
         x: 160
@@ -235,8 +255,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6a9e1e7b5f657bc43a84e6da47193696
-      internalID: -625520712
+      spriteID: 3c65d18284d1cef47bfe0ea02c4034c9
+      internalID: 1481818246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walk_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c318ddf9f72f5048bec9377e2bcab48
+      internalID: 1338827927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Walk_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 827a1a9859e67c14faa800bfb5d18232
+      internalID: -1555721595
       vertices: []
       indices: 
       edges: []
@@ -252,15 +314,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Jump_3: -1861981760
-      Jump_1: 1388977872
-      Jump_2: -1125115230
-      Jump_5: -625520712
-      Jump_4: 815516523
-      Jump_0: -2055137504
-  spritePackingTag: 
+      Walk_0: 151565853
+      Walk_1: -1237485641
+      Walk_2: -728644205
+      Walk_3: -373384713
+      Walk_4: 1022635077
+      Walk_5: 1481818246
+      Walk_6: 1338827927
+      Walk_7: -1555721595
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
