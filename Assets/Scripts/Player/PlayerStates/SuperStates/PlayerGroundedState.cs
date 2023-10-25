@@ -14,7 +14,6 @@ public class PlayerGroundedState : PlayerState
     public PlayerGroundedState(Player player, PlayerStateMachine playerStateMachine, PlayerData playerData, string animationBoolName) 
         : base(player, playerStateMachine, playerData, animationBoolName)
     {
-        
     }
 
     public override void Enter()
@@ -22,11 +21,6 @@ public class PlayerGroundedState : PlayerState
         base.Enter();
         
         player.JumpState.ResetJumpAmountLeft();
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
     }
 
     public override void LogicUpdate()
@@ -39,7 +33,6 @@ public class PlayerGroundedState : PlayerState
 
         if (_jumpInput && player.JumpState.CanJump())
         {
-            player.InputHandler.UseJumpInput();
             playerStateMachine.ChangeState(player.JumpState);
         }
         else if (!_isGrounded)
@@ -51,11 +44,6 @@ public class PlayerGroundedState : PlayerState
         {
             playerStateMachine.ChangeState(player.WallGrabState);
         }
-    }
-
-    public override void PhysicsUpdate()
-    {
-        base.PhysicsUpdate();
     }
 
     public override void DoChecks()

@@ -13,6 +13,9 @@ public class PlayerLandState : PlayerGroundedState
     {
         base.LogicUpdate();
 
+        if(isExitingState)
+            return;
+        
         if (xInput != 0)
         {
             playerStateMachine.ChangeState(player.MoveState);
