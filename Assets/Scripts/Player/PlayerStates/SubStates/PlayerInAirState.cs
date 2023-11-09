@@ -19,6 +19,7 @@ public class PlayerInAirState : PlayerState
     private bool _isTouchingWallBack;
     private bool _oldIsTouchingWall;
     private bool _oldIsTouchingWallBack;
+    private bool _isTouchingLedge;
     
     public PlayerInAirState(Player player, PlayerStateMachine playerStateMachine, PlayerData playerData, string animationBoolName) 
         : base(player, playerStateMachine, playerData, animationBoolName)
@@ -42,6 +43,10 @@ public class PlayerInAirState : PlayerState
         if (_isGrounded && player.CurrentVelocity.y < .01f)
         {
             playerStateMachine.ChangeState(player.LandState);
+        }
+        else if(_isTouchingWall && !_isTouchingLedge)
+        {
+            playerStateMachine.ChangeState(player.LedgeClimbState);
         }
         else if (_jumpInput && (_isTouchingWall || _isTouchingWallBack || _wallJumpCoyoteTime))
         {
@@ -72,16 +77,32 @@ public class PlayerInAirState : PlayerState
         }
     }
 
+    public override void Exit()
+    {
+        base.Exit();
+
+        _oldIsTouchingWall = false;
+        _oldIsTouchingWallBack = false;
+        _isTouchingWall = false;
+        _isTouchingWallBack = false;
+    }
+
     public override void DoChecks()
     {
         base.DoChecks();
 
         _oldIsTouchingWall = _isTouchingWall;
         _oldIsTouchingWallBack = _isTouchingWallBack;
-        
+
         _isGrounded = player.CheckIfGrounded();
         _isTouchingWall = player.CheckIfTouchingWall();
         _isTouchingWallBack = player.CheckIfTouchingWallBack();
+        _isTouchingLedge = player.CheckIfTouchingLedge();
+
+        if (_isTouchingWall && !_isTouchingLedge)
+        {
+            player.LedgeClimbState.SetDetectedPosition(player.transform.position);
+        }
 
         if (!_wallJumpCoyoteTime && !_isTouchingWall && !_isTouchingWallBack &&
             (_oldIsTouchingWall || _oldIsTouchingWallBack))

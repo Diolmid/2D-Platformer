@@ -31,4 +31,8 @@ public class PlayerData : ScriptableObject
 
     [Header("Wall Climb State")] 
     public float wallClimbVelocity = 3;
+
+    [Header("Ledge Climb State")]
+    public Vector2 startOffset;
+    public Vector2 stopOffset;
 }

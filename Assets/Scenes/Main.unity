@@ -300,6 +300,7 @@ Transform:
   m_Children:
   - {fileID: 1454180871}
   - {fileID: 1519775857}
+  - {fileID: 1221151478}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &102110455
@@ -317,6 +318,7 @@ MonoBehaviour:
   playerData: {fileID: 11400000, guid: e79cd8873a69fe246a5700312b99c2ac, type: 2}
   groundCheck: {fileID: 1454180871}
   wallCheck: {fileID: 1519775857}
+  ledgeCheck: {fileID: 1221151478}
 --- !u!61 &102110456
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -353,7 +355,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4, y: 4}
+    oldSize: {x: 8, y: 8}
     newSize: {x: 4, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -67348,6 +67350,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _afterImagePrefab: {fileID: 8105282718366923954, guid: 11a978c8dafe2f6449e5dc59de0cbf28, type: 3}
+--- !u!1 &1221151477
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1221151478}
+  m_Layer: 9
+  m_Name: Ledge Checl
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1221151478
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221151477}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 102110454}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1287035658
 GameObject:
   m_ObjectHideFlags: 0
